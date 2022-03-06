@@ -61,7 +61,7 @@ generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
 function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
 
 function showQuestions(questions, quizContainer){
-// we'll need a place to store the output and the answer choices
+// store the output and the answer choices
 var output = [];
 var answers;
 
@@ -91,7 +91,7 @@ output.push(
 );
 }
 
-// finally combine our output list into one string of html and put it on the page
+// combine output list into one string of html and put on the page
 quizContainer.innerHTML = output.join('');
 }
 
@@ -138,8 +138,31 @@ submitButton.onclick = function(){
 showResults(questions, quizContainer, resultsContainer);
 }
 
+var timerDisplay = document.getElementById("secondsLeft");
+var startButton = document.getElementById("buttonEl");
+startButton.addEventListener ("click", startQuiz);
+var secondsRemaining = 45;
+function startQuiz (){
+    timerDisplay.innerHTML = secondsRemaining;
+    var startTimer = setInterval(decrement, 1000);
+    startButton.style.display = "none";
+    startButton.style.display = "none";
+    quizContainer.style.display = "block";
+    submitButton.style.display = "block";
 }
 
+function decrement() {  
+    if (secondsRemaining <= 0) {
+        showResults(questions, quizContainer, resultsContainer);
+    
+        clearInterval(startTimer)
+    } else {
+        secondsRemaining--;
+        timerDisplay.innerHTML = secondsRemaining;
+    }
+}
+
+}
 
 
 /*
